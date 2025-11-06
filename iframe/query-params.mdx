@@ -1,0 +1,82 @@
+---
+title: Query Parameters
+description: Configure the IFrame via URL parameters and forward context to our backend
+---
+
+# Query Parameters
+
+Configure the chat IFrame and pass custom context to our backend through URL query parameters.
+
+## Frontend Configuration
+
+Parameters consumed by the frontend to configure the IFrame.
+
+### endpoint
+
+**Required** - Backend API endpoint for chat requests.
+
+```
+?endpoint=https://api.example.com/chat
+```
+
+### subscriptionKey
+
+**Optional** - API key for backend authentication.
+
+```
+?subscriptionKey=your-api-key
+```
+
+Sent as header: `Subscription-Key: your-api-key`
+
+### query
+
+**Optional** - Auto-send an initial message on load.
+
+```
+?query=What%20are%20the%20quarterly%20results%3F
+```
+
+The message is sent automatically and the parameter is removed from URL afterward (authenticated sessions only).
+
+## Passthrough Parameters
+
+Any parameter not consumed by the frontend is automatically forwarded to the Intellegam backend in the request body as `contextParams`. Use these when you need to provide additional context from your application.
+
+### How It Works
+
+```
+https://your-app.com/IFrame?endpoint=https://api.com/chat&customerId=123&tenantId=abc
+```
+
+Intellegam backend receives:
+```json
+{
+  "messages": [...],
+  "contextParams": {
+    "customerId": "123",
+    "tenantId": "abc"
+  }
+}
+```
+
+## Value Types
+
+Parameters support various types through automatic parsing:
+
+- **Strings**: `?name=John`
+- **Numbers**: `?limit=100`
+- **Booleans**: `?enabled=true`
+- **Arrays**: `?tags=["urgent","important"]`
+- **Objects**: `?user={"id":"123","role":"admin"}`
+
+## Security Considerations
+
+- Avoid sensitive data in URLs (use short-lived tokens instead)
+- URL length limit: ~2000 characters
+
+
+## Related Documentation
+
+- [Host Control API](./host-control-api) - Control the chat using postMessage
+- [Event Types](./event-types) - Available message actions

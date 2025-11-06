@@ -1,0 +1,176 @@
+---
+title: Action Types
+description: Available postMessage actions and their specifications
+---
+
+# Action Types
+
+Available actions for the IFrame Host Control API.
+
+| Action | Purpose | Text | Files |
+|--------|---------|------|-------|
+| `send` | Send message immediately | Required (1) | Optional (0-5) |
+| `append-attachments` | Add files without sending | Ignored | Required (1-5) |
+
+## send
+
+Sends a message to the AI immediately with optional attachments.
+
+**Parameters:**
+- `type` (string) - Must be `"intellegam:host-control"`
+- `action` (string) - Must be `"send"`
+- `parts` (Array&lt;TextPart | FilePart&gt;) - Must include exactly one text part, optionally 0-5 images
+
+**Example:**
+
+Text only:
+```javascript
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "send",
+  parts: [
+    { type: "text", text: "What are the key trends?" }
+  ]
+}, "https://your-app.com");
+```
+
+Text with image:
+```javascript
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "send",
+  parts: [
+    {
+      type: "file",
+      url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUg...",
+      filename: "chart.png",
+      mediaType: "image/png"
+    },
+    { type: "text", text: "Analyze this chart" }
+  ]
+}, "https://your-app.com");
+```
+
+Text with multiple images:
+```javascript
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "send",
+  parts: [
+    {
+      type: "file",
+      url: "data:image/png;base64,...",
+      filename: "before.png",
+      mediaType: "image/png"
+    },
+    {
+      type: "file",
+      url: "data:image/png;base64,...",
+      filename: "after.png",
+      mediaType: "image/png"
+    },
+    { type: "text", text: "Compare these screenshots" }
+  ]
+}, "https://your-app.com");
+```
+
+## append-attachments
+
+Adds images to the attachment preview without sending. User can then type their message and send when ready.
+
+**Parameters:**
+- `type` (string) - Must be `"intellegam:host-control"`
+- `action` (string) - Must be `"append-attachments"`
+- `parts` (Array&lt;FilePart&gt;) - 1-5 image files required, text parts are ignored
+
+**Example:**
+
+Single file:
+```javascript
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "append-attachments",
+  parts: [
+    {
+      type: "file",
+      url: "data:image/png;base64,iVBORw0KGg...",
+      filename: "document.png",
+      mediaType: "image/png"
+    }
+  ]
+}, "https://your-app.com");
+```
+
+Multiple files:
+```javascript
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "append-attachments",
+  parts: [
+    {
+      type: "file",
+      url: "data:image/png;base64,...",
+      filename: "page1.png",
+      mediaType: "image/png"
+    },
+    {
+      type: "file",
+      url: "data:image/png;base64,...",
+      filename: "page2.png",
+      mediaType: "image/png"
+    }
+  ]
+}, "https://your-app.com");
+```
+
+## Part Types
+
+### TextPart
+
+```typescript
+{
+  type: "text",
+  text: string
+}
+```
+
+### FilePart
+
+```typescript
+{
+  type: "file",
+  url: string,         // Base64 data URI
+  mediaType: string,   // image/png, image/jpeg, image/gif, image/webp
+  filename?: string    // Optional display name
+}
+```
+
+**Limits:** 10 MB per file, 5 files maximum per message
+
+## TypeScript Types
+
+```typescript
+type HostMessage = {
+  type: "intellegam:host-control";
+  action: "send" | "append-attachments";
+  parts: Array<TextPart | FilePart>;
+};
+
+type TextPart = {
+  type: "text";
+  text: string;
+};
+
+type FilePart = {
+  type: "file";
+  url: string;
+  mediaType: string;
+  filename?: string;
+};
+```
+
+## Related Documentation
+
+- [Host Control API](./host-control-api) - How to send messages
+- [Query Parameters](./query-params) - URL configuration
+- [AI SDK UIMessage](https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message#fileuipart) - Format specification

@@ -1,0 +1,39 @@
+---
+title: Overview
+description: Embed the Intellegam chat in your application with postMessage API and query parameters
+---
+
+# IFrame Integration
+
+Embed the Intellegam chat in your application as an IFrame with programmatic control and URL-based configuration.
+
+## Core Capabilities
+
+**[Host Control API](./host-control-api)** - Control the chat from your application using postMessage.
+
+**[Query Parameters](./query-params)** - Configure backend endpoints and pass custom context through URL parameters.
+
+## Basic Setup
+
+```html
+<iframe
+  id="chat-iframe"
+  src="https://ai.intellegam.com/iframe?endpoint=https://api.example.com/chat"
+  width="400"
+  height="600"
+></iframe>
+```
+
+## Integration Patterns
+
+### Static Embed
+
+Load IFrame with query parameters only. User interacts directly with the chat.
+
+### Programmatic Control
+
+Use postMessage to send messages and attachments from your application. See [Host Control API](./host-control-api) for details.
+
+### Context Passing
+
+Add passthrough parameters to forward context to our backend . See [Query Parameters](./query-params) for details.

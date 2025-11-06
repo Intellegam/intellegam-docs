@@ -1,0 +1,68 @@
+---
+title: Host Control API
+description: Control the embedded chat IFrame from your application using postMessage
+---
+
+# Overview
+
+Control the chat IFrame from your host application using the browser's `postMessage` API.
+
+## Basic Usage
+
+```javascript
+const iframe = document.getElementById('chat-iframe');
+
+iframe.contentWindow.postMessage({
+  type: "intellegam:host-control",
+  action: "send",
+  parts: [{ type: "text", text: "Your message" }]
+}, "https://your-app.com");
+```
+
+## Message Structure
+
+```typescript
+{
+  type: "intellegam:host-control",
+  action: "send" | "append-attachments",
+  parts: Array<TextPart | FilePart>
+}
+```
+
+**Required fields:**
+- `type`: Must be `"intellegam:host-control"`
+- `action`: Action to perform - see [Event Types](./event-types)
+- `parts`: Message parts following [AI SDK UIMessage format](https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message#fileuipart)
+
+## Message Parts
+
+### Text Part
+
+```typescript
+{ type: "text", text: string }
+```
+
+### File Part
+
+```typescript
+{
+  type: "file",
+  url: string,         // Base64 data URI
+  mediaType: string,   // MIME type
+  filename?: string
+}
+```
+
+**Supported media types:** `image/png`, `image/jpeg`, `image/gif`, `image/webp`
+
+**Limits:** 10 MB per file, 5 files maximum
+
+## Error Handling
+
+Invalid messages are silently ignored. Validation errors are shown to the user via toast notifications in the IFrame.
+
+## Related Documentation
+
+- [Event Types](./event-types) - Available actions and examples
+- [Query Parameters](./query-params) - URL configuration
+- [AI SDK UIMessage](https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message#fileuipart) - Message format specification
