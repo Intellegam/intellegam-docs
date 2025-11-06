@@ -16,12 +16,12 @@
           {
             "group": "IFrame integration",
             "pages": [
-              "/IFrame/overview",
+              "/iframe/overview",
               {
-                "group": "Control the IFrame",
-                "pages": ["/IFrame/host-control-api", "/IFrame/action-types"]
+                "group": "Control the iFrame",
+                "pages": ["/iframe/host-control-api", "/iframe/action-types"]
               },
-              "/IFrame/query-params"
+              "/iframe/query-params"
             ]
           }
         ]
