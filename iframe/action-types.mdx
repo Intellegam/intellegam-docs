@@ -17,9 +17,9 @@ Available actions for the IFrame Host Control API.
 Sends a message to the AI immediately with optional attachments.
 
 **Parameters:**
-- `type` (string) - Must be `"intellegam:host-control"`
-- `action` (string) - Must be `"send"`
-- `parts` (Array&lt;TextPart | FilePart&gt;) - Must include exactly one text part, optionally 0-5 images
+- `type` - Must be `"intellegam:host-control"`
+- `action` - Must be `"send"`
+- `parts` - Array of message parts (exactly one [text part](#textpart) required, 0-5 [file parts](#filepart) optional)
 
 **Example:**
 
@@ -79,9 +79,9 @@ iframe.contentWindow.postMessage({
 Adds images to the attachment preview without sending. User can then type their message and send when ready.
 
 **Parameters:**
-- `type` (string) - Must be `"intellegam:host-control"`
-- `action` (string) - Must be `"append-attachments"`
-- `parts` (Array&lt;FilePart&gt;) - 1-5 image files required, text parts are ignored
+- `type` - Must be `"intellegam:host-control"`
+- `action` - Must be `"append-attachments"`
+- `parts` - Array of [file parts](#filepart) (1-5 image files required, text parts are ignored)
 
 **Example:**
 

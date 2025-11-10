@@ -31,38 +31,21 @@ iframe.contentWindow.postMessage({
 
 **Required fields:**
 - `type`: Must be `"intellegam:host-control"`
-- `action`: Action to perform - see [Event Types](./event-types)
-- `parts`: Message parts following [AI SDK UIMessage format](https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message#fileuipart)
+- `action`: Action to perform - see [Action Types](./action-types)
+- `parts`: Array of message parts (text and/or file parts)
 
-## Message Parts
+**Message part types:**
+- Text part: `{ type: "text", text: string }`
+- File part: `{ type: "file", url: string, mediaType: string, filename?: string }`
 
-### Text Part
-
-```typescript
-{ type: "text", text: string }
-```
-
-### File Part
-
-```typescript
-{
-  type: "file",
-  url: string,         // Base64 data URI
-  mediaType: string,   // MIME type
-  filename?: string
-}
-```
-
-**Supported media types:** `image/png`, `image/jpeg`, `image/gif`, `image/webp`
-
-**Limits:** 10 MB per file, 5 files maximum
+See [Action Types](./action-types) for complete part specifications and examples.
 
 ## Error Handling
 
-Invalid messages are silently ignored. Validation errors are shown to the user via toast notifications in the IFrame.
+Validation errors are shown to users within the IFrame.
 
 ## Related Documentation
 
-- [Event Types](./event-types) - Available actions and examples
+- [Action Types](./action-types) - Available actions and examples
 - [Query Parameters](./query-params) - URL configuration
 - [AI SDK UIMessage](https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message#fileuipart) - Message format specification

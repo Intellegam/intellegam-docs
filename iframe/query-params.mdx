@@ -1,19 +1,22 @@
 ---
 title: Query Parameters
-description: Configure the IFrame via URL parameters and forward context to our backend
+description: Configure the IFrame via URL parameters and pass context to the AI backend
 ---
 
 # Query Parameters
 
-Configure the chat IFrame and pass custom context to our backend through URL query parameters.
+Configure the chat IFrame using URL query parameters. There are two types of parameters:
 
-## Frontend Configuration
+1. **Configuration Parameters** - Control IFrame behavior (endpoint, authentication, initial message)
+2. **Context Parameters** - Pass custom data from your application (automatically forwarded to the AI backend)
 
-Parameters consumed by the frontend to configure the IFrame.
+## Configuration Parameters
+
+These parameters control the IFrame's behavior and connection settings.
 
 ### endpoint
 
-**Required** - Backend API endpoint for chat requests.
+**Required** - Your AI backend API endpoint for chat requests.
 
 ```
 ?endpoint=https://api.example.com/chat
@@ -21,13 +24,13 @@ Parameters consumed by the frontend to configure the IFrame.
 
 ### subscriptionKey
 
-**Optional** - API key for backend authentication.
+**Optional** - API key for your backend authentication.
 
 ```
 ?subscriptionKey=your-api-key
 ```
 
-Sent as header: `Subscription-Key: your-api-key`
+The key is sent with chat requests to authenticate with your backend.
 
 ### query
 
@@ -37,26 +40,32 @@ Sent as header: `Subscription-Key: your-api-key`
 ?query=What%20are%20the%20quarterly%20results%3F
 ```
 
-The message is sent automatically and the parameter is removed from URL afterward (authenticated sessions only).
+The message is sent automatically when the IFrame loads.
 
-## Passthrough Parameters
+**Note:** The query value must be URL-encoded. Spaces become `%20`, question marks become `%3F`, etc.
 
-Any parameter not consumed by the frontend is automatically forwarded to the Intellegam backend in the request body as `contextParams`. Use these when you need to provide additional context from your application.
+Example in JavaScript:
+```javascript
+const message = "What are the quarterly results?";
+const encodedQuery = encodeURIComponent(message);
+// Result: "What%20are%20the%20quarterly%20results%3F"
+```
 
-### How It Works
+## Context Parameters
+
+Any parameter not listed above is automatically forwarded with each chat request. Use these to pass application-specific context from your system.
+
+### Example
 
 ```
-https://your-app.com/IFrame?endpoint=https://api.com/chat&customerId=123&tenantId=abc
+https://ai.intellegam.com/iframe?endpoint=https://api.com/chat&customerId=123&tenantId=abc
 ```
 
-Intellegam backend receives:
+The backend receives these additional parameters with each chat request:
 ```json
 {
-  "messages": [...],
-  "contextParams": {
-    "customerId": "123",
-    "tenantId": "abc"
-  }
+  "customerId": "123",
+  "tenantId": "abc"
 }
 ```
 
@@ -79,4 +88,4 @@ Parameters support various types through automatic parsing:
 ## Related Documentation
 
 - [Host Control API](./host-control-api) - Control the chat using postMessage
-- [Event Types](./event-types) - Available message actions
+- [Action Types](./action-types) - Available message actions
