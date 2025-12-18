@@ -21,7 +21,9 @@
                 "group": "Control the iFrame",
                 "pages": ["/iframe/host-control-api", "/iframe/action-types"]
               },
-              "/iframe/query-params"
+              "/iframe/query-params",
+              "/iframe/config-override",
+              "/iframe/configurator"
             ]
           }
         ]

@@ -1,0 +1,78 @@
+---
+title: IFrame Configurator
+description: Interactive tool to build and preview IFrame embed configurations
+---
+
+# IFrame Configurator
+
+The IFrame Configurator is a visual tool that helps you build and preview IFrame embed URLs. Instead of manually constructing URLs with parameters, you can use form fields to configure your embed and see a live preview.
+
+## Access
+
+Open the configurator at:
+
+```
+https://ai.intellegam.com/iframe/configurator
+```
+
+## Features
+
+- **Form-based editing** - No need to manually encode URL parameters
+- **Copy URL** - Get the generated IFrame URL with one click
+- **Copy Embed Code** - Get ready-to-use HTML IFrame code
+
+## Configuration Tabs
+
+The configurator organizes settings into three tabs:
+
+### Endpoint Tab
+
+Configure your backend connection.
+
+| Field | Description | Required |
+|-------|-------------|----------|
+| Endpoint URL | Your AI backend API endpoint | Yes |
+| Subscription Key | API key for backend authentication (pre-encrypted) | No |
+| Context Parameters | Custom key-value pairs forwarded to your backend | No |
+
+### Appearance Tab
+
+Customize the visual design.
+
+| Field | Description |
+|-------|-------------|
+| Title | Chat window title in the header |
+| Title Logo URL | Logo image displayed in the header |
+| Chat Logo URL | Logo image displayed in the chat area |
+| Background Image | Background image URL for the chat |
+| Input Placeholder | Placeholder text in the message input |
+
+### Messages Tab
+
+Configure text content and prompts.
+
+| Field | Description |
+|-------|-------------|
+| Start Message | Initial greeting shown when chat loads |
+| Start Prompts | Up to 4 suggested prompts shown as buttons |
+| Disclaimer | Disclaimer text displayed below the chat |
+
+## Usage
+
+1. **Enter your endpoint URL** - This is required to generate an embed URL
+2. **Customize appearance** - Switch to the Appearance tab and add your branding
+3. **Set messages** - Switch to the Messages tab and configure your greeting and prompts
+4. **Preview** - The preview panel updates as you make changes. Click "Refresh Preview" to reload
+5. **Copy** - Use "Copy URL" for the IFrame URL or "Copy Embed" for the complete HTML code
+
+## Tips
+
+- The preview highlights in blue when it needs refreshing after changes
+- Use the Reset button to restore your original configuration
+- Context parameters let you pass custom data (like user IDs or tenant info) to your backend
+- The subscription key field expects an already-encrypted value
+
+## Related Documentation
+
+- [Configuration Override](./config-override) - Parameter reference for configuration overrides
+- [Query Parameters](./query-params) - Parameter reference for endpoints and context
