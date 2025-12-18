@@ -1,21 +1,21 @@
 ---
 title: Configuration Override
-description: Customize the chat interface by overriding backend configuration via URL parameters
+description: Customize the chat interface by overriding the assistant's configuration via URL parameters
 ---
 
 # Configuration Override
 
-Override your backend's default configuration by adding parameters to the IFrame URL. This lets you customize the chat interface for different use cases without changing your backend settings.
+Override the assistant's default configuration by adding parameters to the IFrame URL. This lets you customize the chat interface for different use cases without changing the assistant's settings.
 
 ## How It Works
 
 When you embed the chat IFrame, configuration is loaded in this order:
 
-1. **Backend configuration** - Your backend's `/config` endpoint provides default settings
-2. **URL parameters** - Any parameters you add to the IFrame URL override the backend defaults
-3. **System defaults** - Used only if neither backend nor URL provides a value
+1. **Assistant configuration** - The assistant's default settings
+2. **URL parameters** - Any parameters you add to the IFrame URL override the defaults
+3. **System defaults** - Used only if neither the assistant nor URL provides a value
 
-Only parameters you explicitly include in the URL are overridden. All other settings remain as configured by your backend.
+Only parameters you explicitly include in the URL are overridden. All other settings remain as configured in the assistant.
 
 ## Branding Parameters
 
